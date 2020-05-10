@@ -1,29 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
- 
-int main()
-{
-    int i, j, rept = 0, diamantes;
-    char solo[1010];
-    scanf("%d", &rept);
-    while (rept--){
-        scanf("%s", solo);
-        diamantes = 0;
-        for (i = 0; i < strlen(solo); i++){
-            if (solo[i] == '\0')
-                break;
-            if (solo[i] == '<'){
-                for (j = i; j< strlen(solo); j++){
-                    if (solo[j] == '>'){
-                        diamantes++;
-                        solo[j] = '0';
-                        break;
-                    }
-                }
-            }
-        }
-        printf("%d\n", diamantes);
+
+int main(){
+    char linha[1001];
+    int i,esquerda, direita;
+    while(scanf("%s",&linha) != EOF){
+       esquerda = 0;
+       direita = 0;
+       for(i = 0; linha[i] != '\0'; i++){
+             if(linha[i] == '(') esquerda++;
+             else if (linha[i] == ')'){
+                  direita++;
+                  if(esquerda > 0){
+                         esquerda--;
+                         direita--;
+                  }
+             }
+       }
+       if(esquerda == 0 && direita == 0) printf("correct\n");
+       else printf("incorrect\n");
     }
     return 0;
 }
