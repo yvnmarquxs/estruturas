@@ -1,29 +1,40 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
- 
-int main()
-{
-    int i, j, rept = 0, diamantes;
-    char solo[1010];
-    scanf("%d", &rept);
-    while (rept--){
-        scanf("%s", solo);
-        diamantes = 0;
-        for (i = 0; i < strlen(solo); i++){
-            if (solo[i] == '\0')
-                break;
-            if (solo[i] == '<'){
-                for (j = i; j< strlen(solo); j++){
-                    if (solo[j] == '>'){
-                        diamantes++;
-                        solo[j] = '0';
-                        break;
-                    }
-                }
-            }
-        }
-        printf("%d\n", diamantes);
-    }
-    return 0;
+
+
+int mdc(int a,int b);
+int main(){
+ int n, x, n1, d1, n2, d2,num, mdcr, den;
+ char o;
+
+ scanf("%d\n",&n);
+ for(x = 0; x < n; x++){
+  scanf("%d / %d %c %d / %d",&n1,&d1,&o,&n2,&d2);
+  if(o == '/'){
+   num = d1*n2;
+   den = n1*d2;
+   mdcr = mdc(den,num);
+   printf("%d/%d = %d/%d\n",den,num,den/mdcr,num/mdcr);
+  }
+  else{
+   num = d1*d2;
+   if(o == '+')
+   den = n1*(num/d1) + n2*(num/d2);
+   else if(o == '-')
+   den = n1*(num/d1) - n2*(num/d2);
+   else if(o == '*')
+   den = n1*n2;
+   mdcr = mdc(den,num);
+   if(mdcr < 0) mdcr = -1*mdcr;
+   printf("%d/%d = %d/%d\n",den,num,den/mdcr,num/mdcr);
+  }
+ }
+ return 0;
 }
+
+int mdc(int a,int b)
+ {
+ if(b == 0) 
+  return a;
+ else
+  return mdc(b,a%b);
+} 
