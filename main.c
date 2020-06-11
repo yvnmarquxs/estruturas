@@ -1,29 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
- 
-int main()
+
+int ascending(void const *a, void const *b )
 {
-    int i, j, rept = 0, diamantes;
-    char solo[1010];
-    scanf("%d", &rept);
-    while (rept--){
-        scanf("%s", solo);
-        diamantes = 0;
-        for (i = 0; i < strlen(solo); i++){
-            if (solo[i] == '\0')
-                break;
-            if (solo[i] == '<'){
-                for (j = i; j< strlen(solo); j++){
-                    if (solo[j] == '>'){
-                        diamantes++;
-                        solo[j] = '0';
-                        break;
-                    }
-                }
-            }
+    return (*(int*)a - *(int*)b );
+}
+
+int descending(void const *a, void const *b )
+{
+    return (*(int*)b - *(int*)a );
+}
+
+int main(){
+    int n, i, num, par, impar;
+    
+    scanf("%d", &n);
+    par = 0;
+    impar = 0;
+    int np[n];
+    int ni[n];
+    
+    for(i = 0; i < n; i++){
+        scanf("%d", &num);
+        if(num%2 == 0){
+            np[par] = num;
+            par++;
+        }else{
+            ni[impar] = num;
+            impar++;
         }
-        printf("%d\n", diamantes);
     }
+    qsort(np, par, sizeof(int), ascending);
+    qsort(ni, impar, sizeof(int), descending);
+    for(i = 0; i < par; i++){
+        printf("%d\n",np[i]);
+    }
+    for(i = 0; i < impar; i++){
+        printf("%d\n",ni[i]);
+    }
+    
     return 0;
 }
